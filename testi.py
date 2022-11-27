@@ -52,7 +52,7 @@ kratice = {
 def mnozica_vescin(s):
     masterArr = []
     tmp = s.split(" ")
-    tmp = "" if s == "" else tmp
+    tmp = "" if s == "" else tmp #😊
     for el in tmp:
         masterArr.append(kratice[el])
     return set(masterArr)
@@ -79,15 +79,48 @@ def dvosmerni_zemljevid(zemljevid):
 
 
 def mozna_pot(pot, zemljevid):
-    return None
+    canPass = 0
+    for i in range(0,len(pot)-1):
+        if (pot[i], pot[i + 1]) in zemljevid.keys():
+            canPass += 1
+        elif (pot[i + 1], pot[i]) in zemljevid.keys():
+            canPass += 1
+        else:
+            return False
+    return True
 
 
 def potrebne_vescine(pot, zemljevid):
-    return None
+    skills = []
+    tmp = ""
+    for i in range(0, len(pot) - 1):
+        if (pot[i], pot[i + 1]) in zemljevid.keys():
+            tmp += zemljevid[(pot[i], pot[i + 1])] + " "
+        elif (pot[i + 1], pot[i]) in zemljevid.keys():
+            tmp += zemljevid[(pot[i + 1], pot[i])] + " "
+    tmp = tmp.split(" ")
+    for el in tmp:
+        if el != "":
+            skills.append(kratice[el])
+    return set(skills)
 
 
 def nepotrebne_vescine(pot, zemljevid, vescine):
-    return None
+    skills = []
+    tmp = ""
+    vescineArr = list(vescine)
+    for i in range(0, len(pot) - 1):
+        if (pot[i], pot[i + 1]) in zemljevid.keys():
+            tmp += zemljevid[(pot[i], pot[i + 1])] + " "
+        elif (pot[i + 1], pot[i]) in zemljevid.keys():
+            tmp += zemljevid[(pot[i + 1], pot[i])] + " "
+    tmp = tmp.split(" ")
+    for el in tmp:
+        if el != "":
+            skills.append(kratice[el])
+
+    return set([elem for elem in vescineArr if elem not in skills])
+
 
 
 def koncna_tocka(pot, zemljevid, vescine):
