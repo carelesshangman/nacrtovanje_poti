@@ -44,8 +44,8 @@ kratice = {
     "gravel": "Vožnja po razsutem makadamu",
     "trava": "Oranje zelenic parkov",
     "avtocesta": "Vožnja po avtocesti",
-    "crepinje": "Vožnja po razbiti steklovini",
-    "rodeo": "Vožnja po kolesarski poti skozi Črnuče",
+    "črepinje": "Vožnja po razbiti steklovini",
+    "rodeo": "Vožnja po kolesarski poti skozi Črnuče"
 }
 
 
@@ -124,7 +124,15 @@ def nepotrebne_vescine(pot, zemljevid, vescine):
 
 
 def koncna_tocka(pot, zemljevid, vescine):
-    return None
+    skillIssue=set()
+    for x in range(0, len(pot) - 1):
+        tmp=(pot[x],pot[x+1])
+        novapot=potrebne_vescine(tmp, zemljevid)
+        for x in novapot:
+            if x not in vescine:
+                skillIssue.add(x)
+        if skillIssue!=set():
+            return (tmp[0],skillIssue)
 
 
 from unittest import TestCase, main
